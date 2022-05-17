@@ -1,0 +1,16 @@
+FROM alpine
+
+RUN apk update
+RUN apk add apache2
+RUN apk add php$phpverx-apache2
+RUN rm -rf /var/www/localhost/htdocs/*
+
+COPY ./html/ /var/www/localhost/htdocs/
+
+VOLUME [ "/var/www/localhost/htdocs" ]
+
+WORKDIR /var/www/localhost/htdocs
+
+EXPOSE 80
+
+CMD ["httpd", "-DFOREGROUND"]
